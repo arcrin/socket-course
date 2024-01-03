@@ -1,0 +1,16 @@
+<!-- socket.io.js is added by the socketio server -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io("http://localhost:8000");
+  socket.on("connect", () => {
+    console.log(socket.id);
+  });
+  socket.on("messageFromServer", (message) => {
+    console.log(message.data);
+    socket.emit("messageFromClient", { data: "Data from the Client!" });
+  });
+  socket.io.on('reconnect', (attempt) => {
+    console.log('reconnect event');
+    console.log(attempt);
+  })
+</script>
